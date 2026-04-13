@@ -5,11 +5,13 @@
 Give your model a short, descriptive name.  
 Example: **VibeFinder 1.0**  
 
+MoodMatcher 1.5
+
 ---
 
 ## 2. Intended Use  
 
-Suggests the top 5 songs from an 18-song catalog based on a user's preferred genre, mood, energy level, and valence. It is designed for classroom exploration of how content-based recommendation systems work. Its is not intended for real users or production use. The system assumes the user has a single, consistent taste profile and does not account for changing moods or listening context. 
+MoodMatcher 1.5 Suggests the top 5 songs from an 18-song catalog based on a user's preferred genre, mood, energy level, and valence. It is designed for classroom exploration of how content-based recommendation systems work. Its is not intended for real users or production use. The system assumes the user has a single, consistent taste profile and does not account for changing moods or listening context. 
 
 Prompts:  
 
@@ -41,8 +43,7 @@ The recommender looks at each song in the catalog and gives it a score based on 
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
-The catalog contains 18 songs stored in a CSV file. Genres represented include pop, lofi, rock, ambient, jazz, synthwave, indie pop, hip hop, edm , country, and folk. Moods include happy, chill, intense, relaxed, focused, and moody. Eight songs were added to the original 10 to increase diversity. The dataset is small and reflects a limited range of musical taste -- it skews toward Western genres and does not include classical, R & B, reggae, or non-English language music. Whose taste the data reflects is unclear, as songs were generated rather than sourced from real listener data. 
+Describe the dataset the model uses. The catalog contains 18 songs stored in a CSV file. Genres represented include pop, lofi, rock, ambient, jazz, synthwave, indie pop, hip hop, edm , country, and folk. Moods include happy, chill, intense, relaxed, focused, and moody. Eight songs were added to the original 10 to increase diversity. The dataset is small and reflects a limited range of musical taste -- it skews toward Western genres and does not include classical, R & B, reggae, or non-English language music. Whose taste the data reflects is unclear, as songs were generated rather than sourced from real listener data. 
 
 Prompts:  
 
@@ -96,8 +97,7 @@ Prompts:
 - What surprised you  
 - Any simple tests or comparisons you ran  
 
-No need for numeric metrics unless you created some.
-Five user profiles were tested: Chill Lofi Studier, High Energy Pop, Deep Intense Rock, Conflicted Listener, and EDM Raver. For most profiles the top results matched expectations. The EDM Raver profile produced a near-perfect score of 4.50 for Bass Drop Arena, which was the only song that hit genre,mood, and energy simultaneously. The most surprising result came from the Conflicted Listener profile, which exposed the genre bias — calm ambient songs ranked above high-energy songs despite the user's energy target being 0.90. A weight experiment was also run, reducing genre from +2.0 to +1.0 and doubling energy weight, which confirmed that genre still dominated the rankings even at half strength.
+No need for numeric metrics unless you created some.Five user profiles were tested: Chill Lofi Studier, High Energy Pop, Deep Intense Rock, Conflicted Listener, and EDM Raver. For most profiles the top results matched expectations. The EDM Raver profile produced a near-perfect score of 4.50 for Bass Drop Arena, which was the only song that hit genre,mood, and energy simultaneously. The most surprising result came from the Conflicted Listener profile, which exposed the genre bias — calm ambient songs ranked above high-energy songs despite the user's energy target being 0.90. A weight experiment was also run, reducing genre from +2.0 to +1.0 and doubling energy weight, which confirmed that genre still dominated the rankings even at half strength.
 
 
 ---

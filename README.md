@@ -142,12 +142,14 @@ Combines reflection and model card framing from the Module 3 guidance. :contentR
 
 ```markdown
 # 🎧 Model Card - Music Recommender Simulation
-
+Building this recommender made clear how much a single design decision — like the genre weight — can shape every result the system produces. A score that feels mathematically reasonable can still produce recommendations that miss what the user actually wants, as the Conflicted Listener experiment showed. Real platforms like Spotify face the same tradeoffs but have millions of behavioral signals to balance them out. This project changed how I think about recommendation systems: what feels like a smart suggestion is often just math that someone chose, and those choices carry real consequences for what users do and do not get shown.
 ## 1. Model Name
 
 Give your recommender a name, for example:
 
 > VibeFinder 1.0
+MusicMatcher 1.5
+
 
 ---
 
@@ -240,4 +242,13 @@ A few sentences about what you learned:
 - What surprised you about how your system behaved
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
+
+
+## Screenshots 
+
+Original Weight Output : 
+![Original Weights Output](Original%20Weight.png)
+
+Experiment Results Output : 
+![Experiment Results Output](Result.png)
 
