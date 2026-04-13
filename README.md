@@ -20,14 +20,46 @@ Replace this paragraph with your own summary of what your version does.
 Explain your design in plain language.
 
 Some prompts to answer:
+The system compares each song in the catalog against the user's taste profile using a weighted scoring rule. Genre and mood are rewarded with fixed bonus points for exact matched, while numerical features like energy with valence are scored by proximity - the closer a song's value is to the user's target, the higher it scores. All songs are then ranked and the top K results are returned. 
 
 - What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
+  - genre : categorical exact match scoring 
+  - mood : categorical, exact match scoring 
+  - energy : numerical (0.0-1.0), proximity scoring 
+  - valence : numerical (0.0-1.0), proximity scoring
 - What information does your `UserProfile` store
+    - 'favorit_genre': preferred genre string 
+    - 'favorite_mood': preferred mood string 
+    - 'target_energy' : ideal energy level (0.0-1.0)
+    - 'target_valence' : ideal valence level (0.0-1.0)
 - How does your `Recommender` compute a score for each song
+  - Genre Match : +2.0 points 
+  - Mood Match : +1.0 points 
+  - Energy Similarity : up to +1.0 points '((1.0 - abs)song_energy - target_energy)'
+  - Valence Similarity : up to +0.5 points'(1.0-abs(song_valence - target_valence))
 - How do you choose which songs to recommend
 
 You can include a simple diagram or bullet list if helpful.
+'''mermaid
+flowchart TD
+    A[User Profile\ngenre, mood, energy, valence] --> B[Load songs.csv]
+    B --> C[For each song in catalog]
+    C --> D{Genre match?}
+    D --> |Yes| E[+2.0 points]
+    D --> |No| F[+0 points]
+    E --> G{Mood match?}
+    F --> G
+    G --> |Yes| H[+1.0 points]
+    G --> |No| I[+0 points]
+    H --> J[Energy Similarity Score\n1.0- abs difference x 1.0]
+    I --> J 
+    J --> K[Valence Similarity Score\n1.0 - abs difference x 0.5]
+    K --> L[Total Score for Song]
+    L --> M{More Songs? }
+    M --> |Yes| C
+    M --> |No| N[Sort All Songs by Score\nhighest to lowest]
+    M --> O[Return Top K Recommendations]
+'''
 
 ---
 
