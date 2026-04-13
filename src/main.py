@@ -58,7 +58,27 @@ def main() -> None:
                 "target_valence": 0.45
             }
         ),
+        (
+            "Conflicted Listener",
+            {
+                "favorite_genre": "ambient",
+                "favorite_mood": "sad",
+                "target_energy": 0.90,
+                "target_valence": 0.20
+            }
+        ),
+        (
+            "EDM Raver",
+            {
+                "favorite_genre": "edm",
+                "favorite_mood": "intense",
+                "target_energy": 0.95,
+                "target_valence": 0.52
+            }
+        ),
     ]
+    
+    
 
     for profile_name, user_prefs in profiles:
         run_profile(profile_name, user_prefs, songs)

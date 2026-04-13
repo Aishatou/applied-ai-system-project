@@ -143,3 +143,4 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
         scored.append((song, score, reasons))
     scored.sort(key = lambda x: x[1], reverse= True)
     return scored[:k]
+
