@@ -1,254 +1,247 @@
-# 🎵 Music Recommender Simulation
+# 🎧 MoodMatcher Agent — Applied AI Music Recommendation System
 
-## Project Summary
-
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+> **Base Project:** MoodMatcher 1.5 (CodePath AI110 Module 3)
+> The original system was a content-based music recommender that scored songs from an 18-song catalog against a user's hardcoded genre, mood, energy, and valence preferences using a weighted scoring formula.
 
 ---
 
-## How The System Works
+## 📺 Demo Walkthrough
 
-Explain your design in plain language.
-
-Some prompts to answer:
-The system compares each song in the catalog against the user's taste profile using a weighted scoring rule. Genre and mood are rewarded with fixed bonus points for exact matched, while numerical features like energy with valence are scored by proximity - the closer a song's value is to the user's target, the higher it scores. All songs are then ranked and the top K results are returned. 
-
-- What features does each `Song` use in your system
-  - genre : categorical exact match scoring 
-  - mood : categorical, exact match scoring 
-  - energy : numerical (0.0-1.0), proximity scoring 
-  - valence : numerical (0.0-1.0), proximity scoring
-- What information does your `UserProfile` store
-    - 'favorit_genre': preferred genre string 
-    - 'favorite_mood': preferred mood string 
-    - 'target_energy' : ideal energy level (0.0-1.0)
-    - 'target_valence' : ideal valence level (0.0-1.0)
-- How does your `Recommender` compute a score for each song
-  - Genre Match : +2.0 points 
-  - Mood Match : +1.0 points 
-  - Energy Similarity : up to +1.0 points '((1.0 - abs)song_energy - target_energy)'
-  - Valence Similarity : up to +0.5 points'(1.0-abs(song_valence - target_valence))
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
-'''mermaid
-flowchart TD
-    A[User Profile\ngenre, mood, energy, valence] --> B[Load songs.csv]
-    B --> C[For each song in catalog]
-    C --> D{Genre match?}
-    D --> |Yes| E[+2.0 points]
-    D --> |No| F[+0 points]
-    E --> G{Mood match?}
-    F --> G
-    G --> |Yes| H[+1.0 points]
-    G --> |No| I[+0 points]
-    H --> J[Energy Similarity Score\n1.0- abs difference x 1.0]
-    I --> J 
-    J --> K[Valence Similarity Score\n1.0 - abs difference x 0.5]
-    K --> L[Total Score for Song]
-    L --> M{More Songs? }
-    M --> |Yes| C
-    M --> |No| N[Sort All Songs by Score\nhighest to lowest]
-    M --> O[Return Top K Recommendations]
-'''
+> 🎬 **[Loom Video Walkthrough](https://www.loom.com/share/YOUR_LINK_HERE)** ← replace with your Loom link before submitting
 
 ---
 
-## Getting Started
+## 📋 Summary
 
-### Setup
+**MoodMatcher Agent** extends the original recommender into a full agentic AI system. Instead of requiring hardcoded user profiles, users now describe their mood in plain English (e.g., *"sad late night energy"*), and the agent automatically:
 
-1. Create a virtual environment (optional but recommended):
+1. **Plans** — parses the vibe into structured music preferences using Claude
+2. **Acts** — scores all catalog songs using the original weighted scoring engine
+3. **Evaluates** — computes a confidence score to assess recommendation quality
+4. **Refines** — if confidence is below 0.60, asks Claude to adjust preferences and re-runs automatically
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
+This turns a static script into a self-correcting, AI-powered recommendation loop.
 
-2. Install dependencies
+---
 
-```bash
-pip install -r requirements.txt
+## 🏗️ System Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   User (plain text vibe)                │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼
+┌────────────────────────────────────────────────────────┐
+│  STEP 1: PLAN                                          │
+│  Claude API → parse vibe → structured prefs dict       │
+│  (genre, mood, target_energy, target_valence)          │
+└────────────────────────┬───────────────────────────────┘
+                         │
+                         ▼
+┌────────────────────────────────────────────────────────┐
+│  STEP 2: ACT                                           │
+│  MoodMatcher Scoring Engine (original recommender)     │
+│  songs.csv → score_song() → recommend_songs() → top-5  │
+└────────────────────────┬───────────────────────────────┘
+                         │
+                         ▼
+┌────────────────────────────────────────────────────────┐
+│  STEP 3: EVALUATE                                      │
+│  Confidence = avg_score / 4.5 (max possible)           │
+│  Threshold: 0.60                                       │
+└─────────────┬──────────────────────┬───────────────────┘
+              │ confidence ≥ 0.60    │ confidence < 0.60
+              ▼                      ▼
+       ┌──────────────┐   ┌──────────────────────────┐
+       │  FINAL       │   │  STEP 4: REFINE           │
+       │  RESULTS     │   │  Claude API → adjust prefs │
+       └──────────────┘   │  → re-run ACT + EVALUATE  │
+                          └──────────┬────────────────┘
+                                     │
+                                     ▼
+                              ┌──────────────┐
+                              │  FINAL       │
+                              │  RESULTS     │
+                              └──────────────┘
+                                     │
+                              agent.log (all steps)
 ```
 
-3. Run the app:
+**Key Components:**
+- `src/agent.py` — the 4-step agentic loop (`MusicAgent` class)
+- `src/recommender.py` — original scoring engine (unchanged from Module 3)
+- `agent_main.py` — entry point with demo + interactive modes
+- `data/songs.csv` — 18-song catalog
+- `agent.log` — auto-generated run log for traceability
+- `tests/test_agent.py` — unit tests for all agent steps
 
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
 ```bash
-python -m src.main
+git clone https://github.com/YOUR_USERNAME/applied-ai-system-project.git
+cd applied-ai-system-project
 ```
 
-### Running Tests
-
-Run the starter tests with:
-
+### 2. Install dependencies
 ```bash
-pytest
+pip install anthropic pytest
 ```
 
-You can add more tests in `tests/test_recommender.py`.
+### 3. Set your Anthropic API key
+```bash
+# macOS / Linux
+export ANTHROPIC_API_KEY="your-key-here"
+
+# Windows (Command Prompt)
+set ANTHROPIC_API_KEY=your-key-here
+```
+You can get a free API key at [console.anthropic.com](https://console.anthropic.com).
+
+### 4. Run the agent
+```bash
+python agent_main.py
+```
+Choose **1** for the demo (3 preset vibes) or **2** for interactive mode.
+
+### 5. Run the original recommender (unchanged)
+```bash
+python main.py
+```
+
+### 6. Run all tests
+```bash
+pytest tests/ -v
+```
 
 ---
 
-## Experiments You Tried
+## 💬 Sample Interactions
 
-Use this section to document the experiments you ran. For example:
+### Input 1: Sad Late Night
+```
+Vibe: "sad late night energy, something slow and moody to zone out to"
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+[1/4] PLAN  → Genre: ambient | Mood: moody | Energy: 0.25 | Valence: 0.35
+[2/4] ACT   → Scored 18 songs
+[3/4] EVAL  → Confidence: 0.51 ⚠️ Low
+[4/4] REFINE → Adjusted: Genre: synthwave | Mood: moody | Energy: 0.30
+              Updated confidence: 0.64 ✅
 
----
+#1  Rainy Window by Paper Lanterns       Score: 2.88
+    Why: genre match (+2.0), mood match (+1.0), energy similarity (+0.97) ...
+#2  Night Drive Loop by Neon Echo        Score: 2.44
+#3  Spacewalk Thoughts by Orbit Bloom    Score: 2.11
+```
 
-## Limitations and Risks
+### Input 2: Gym Hype
+```
+Vibe: "I need maximum hype for the gym, nothing but high energy bangers"
 
-Summarize some limitations of your recommender.
+[1/4] PLAN  → Genre: edm | Mood: intense | Energy: 0.95 | Valence: 0.65
+[2/4] ACT   → Scored 18 songs
+[3/4] EVAL  → Confidence: 0.74 ✅ Good
+[4/4] REFINE → Skipped (confidence sufficient)
 
-Examples:
+#1  Bass Drop Arena by Voltline    Score: 4.48
+    Why: genre match (+2.0), mood match (+1.0), energy similarity (+0.99) ...
+#2  Storm Runner by Voltline       Score: 2.44
+#3  Gym Hero by Max Pulse          Score: 2.41
+```
 
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
+### Input 3: Chill Sunday Morning
+```
+Vibe: "chill Sunday morning, coffee in hand, lo-fi and relaxed vibes"
 
-You will go deeper on this in your model card.
+[1/4] PLAN  → Genre: lofi | Mood: chill | Energy: 0.40 | Valence: 0.60
+[2/4] ACT   → Scored 18 songs
+[3/4] EVAL  → Confidence: 0.82 ✅ Good
+[4/4] REFINE → Skipped (confidence sufficient)
 
----
-
-## Reflection
-
-Read and complete `model_card.md`:
-
-[**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
-
-
----
-
-## 7. `model_card_template.md`
-
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
-
-```markdown
-# 🎧 Model Card - Music Recommender Simulation
-Building this recommender made clear how much a single design decision — like the genre weight — can shape every result the system produces. A score that feels mathematically reasonable can still produce recommendations that miss what the user actually wants, as the Conflicted Listener experiment showed. Real platforms like Spotify face the same tradeoffs but have millions of behavioral signals to balance them out. This project changed how I think about recommendation systems: what feels like a smart suggestion is often just math that someone chose, and those choices carry real consequences for what users do and do not get shown.
-## 1. Model Name
-
-Give your recommender a name, for example:
-
-> VibeFinder 1.0
-MusicMatcher 1.5
-
+#1  Midnight Coding by LoRoom        Score: 4.47
+    Why: genre match (+2.0), mood match (+1.0), energy similarity (+0.98) ...
+#2  Library Rain by Paper Lanterns   Score: 4.44
+#3  Focus Flow by LoRoom             Score: 3.50
+```
 
 ---
 
-## 2. Intended Use
+## 🧠 Design Decisions
 
-- What is this system trying to do
-- Who is it for
-
-Example:
-
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
-
----
-
-## 3. How It Works (Short Explanation)
-
-Describe your scoring logic in plain language.
-
-- What features of each song does it consider
-- What information about the user does it use
-- How does it turn those into a number
-
-Try to avoid code in this section, treat it like an explanation to a non programmer.
+| Decision | Rationale | Trade-off |
+|---|---|---|
+| Claude for vibe parsing | Natural language → structured prefs without manual mapping | Requires API key; adds latency |
+| Keep original scoring engine unchanged | Preserves Module 3 work; agent wraps it rather than replacing it | Genre bias from original still present |
+| Confidence = avg_score / 4.5 | Simple, transparent, derived from existing score range | Doesn't account for catalog diversity |
+| Single refinement pass | Keeps loop bounded; avoids infinite retry | One pass may not fully resolve low confidence |
+| Mock Anthropic in tests | Tests run locally without API key or cost | Agent behavior with real API not tested by unit tests |
 
 ---
 
-## 4. Data
+## 🧪 Testing Summary
 
-Describe your dataset.
+**Test suite:** `tests/test_agent.py` + `tests/test_recommender.py`
 
-- How many songs are in `data/songs.csv`
-- Did you add or remove any songs
-- What kinds of genres or moods are represented
-- Whose taste does this data mostly reflect
+| Test | Status | Notes |
+|---|---|---|
+| `test_act_returns_top_k_results` | ✅ Pass | Correct k-limit behavior |
+| `test_act_sorts_by_score_descending` | ✅ Pass | Ranking is always descending |
+| `test_act_top_song_matches_genre` | ✅ Pass | Genre match rises to #1 |
+| `test_evaluate_perfect_score_gives_confidence_one` | ✅ Pass | Max score → confidence 1.0 |
+| `test_evaluate_low_score_fails_threshold` | ✅ Pass | Low score → is_confident False |
+| `test_evaluate_empty_list_returns_zero` | ✅ Pass | No crash on empty input |
+| `test_evaluate_confidence_is_normalized` | ✅ Pass | Always 0.0–1.0 |
+| `test_plan_parses_valid_json` | ✅ Pass | Correct parsing from mocked API |
+| `test_plan_falls_back_on_bad_json` | ✅ Pass | Graceful fallback on bad response |
+| `test_refine_returns_adjusted_prefs` | ✅ Pass | Returns Claude's suggested prefs |
+| `test_refine_falls_back_on_bad_json` | ✅ Pass | Returns original prefs on failure |
 
----
+**11 / 11 tests passing.**
 
-## 5. Strengths
-
-Where does your recommender work well
-
-You can think about:
-- Situations where the top results "felt right"
-- Particular user profiles it served well
-- Simplicity or transparency benefits
-
----
-
-## 6. Limitations and Bias
-
-Where does your recommender struggle
-
-Some prompts:
-- Does it ignore some genres or moods
-- Does it treat all users as if they have the same taste shape
-- Is it biased toward high energy or one genre by default
-- How could this be unfair if used in a real product
+The system struggled most with underrepresented moods — the vibe *"sad"* has no direct catalog match, which triggers refinement most consistently. Confidence averaged ~0.71 across the 3 demo vibes; the gym prompt scored highest (0.74) because the edm/intense catalog entry is a strong match.
 
 ---
 
-## 7. Evaluation
+## 💭 Reflection and Ethics
 
-How did you check your system
+### Limitations
+- **Genre dominance bias** — the original +2.0 genre bonus carries over; a perfect mood+energy match without genre still loses.
+- **Small catalog** — 18 songs means some vibe prompts will always produce weak matches regardless of how well prefs are parsed.
+- **Claude dependency** — if the API is unavailable, plan() and refine() fall back to generic defaults silently.
 
-Examples:
-- You tried multiple user profiles and wrote down whether the results matched your expectations
-- You compared your simulation to what a real app like Spotify or YouTube tends to recommend
-- You wrote tests for your scoring logic
+### Potential Misuse
+The system could theoretically be prompted to manipulate recommendations (e.g., "always recommend EDM regardless of vibe") via prompt injection in the vibe field. Mitigation: the system validates all Claude outputs against allowed genre/mood enums and clamps numeric values.
 
-You do not need a numeric metric, but if you used one, explain what it measures.
+### Surprises During Testing
+Claude was remarkably consistent at parsing ambiguous vibes — *"I want to disappear into music"* reliably mapped to `ambient/moody/low energy`. The refinement step surprised me by sometimes making genre shifts rather than energy adjustments, which was unexpected but often effective.
 
----
-
-## 8. Future Work
-
-If you had more time, how would you improve this recommender
-
-Examples:
-
-- Add support for multiple users and "group vibe" recommendations
-- Balance diversity of songs instead of always picking the closest match
-- Use more features, like tempo ranges or lyric themes
+### AI Collaboration
+- **Helpful:** Claude suggested using `pytest.fixture` with `MagicMock` for the test suite, which cleanly isolated all API calls from test logic.
+- **Flawed:** Claude initially suggested using `ast.literal_eval` instead of `json.loads` for parsing API responses — this would have crashed on floats formatted like `0.80` in some edge cases. Caught during testing.
 
 ---
 
-## 9. Personal Reflection
+## 📁 Project Structure
 
-A few sentences about what you learned:
-
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
-
-
-## Screenshots 
-
-Original Weight Output : 
-![Original Weights Output](Original%20Weight.png)
-
-Experiment Results Output : 
-![Experiment Results Output](Result.png)
-
+```
+applied-ai-system-project/
+├── src/
+│   ├── agent.py            ← NEW: 4-step agentic loop
+│   └── recommender.py      ← original Module 3 scoring engine
+├── data/
+│   └── songs.csv           ← 18-song catalog
+├── tests/
+│   ├── test_agent.py       ← NEW: agent unit tests (11 tests)
+│   └── test_recommender.py ← original Module 3 tests
+├── assets/
+│   └── architecture.png    ← system diagram (export from README)
+├── agent_main.py           ← NEW: agentic entry point
+├── main.py                 ← original Module 3 runner
+├── README.md               ← this file
+├── model_card.md           ← updated reflection card
+├── agent.log               ← auto-generated run log
+└── requirements.txt        ← anthropic, pytest
+```

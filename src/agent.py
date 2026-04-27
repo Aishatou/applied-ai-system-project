@@ -35,37 +35,42 @@ CONFIDENCE_THRESHOLD = 0.60
 # ---------------------------------------------------------------------------
 
 GENRE_KEYWORDS = {
-    "lofi":       ["lofi", "lo-fi", "study", "coding", "chill beats", "bedroom"],
-    "pop":        ["pop", "catchy", "radio", "mainstream", "sing along"],
-    "rock":       ["rock", "guitar", "band", "grunge", "alt"],
-    "ambient":    ["ambient", "atmospheric", "space", "dreamy", "meditation", "background"],
-    "jazz":       ["jazz", "coffee shop", "cafe", "smooth", "mellow", "coffee"],
-    "synthwave":  ["synthwave", "retro", "80s", "neon", "night drive", "late night", "drive"],
-    "indie pop":  ["indie", "indie pop", "alternative pop", "feel good"],
-    "hip hop":    ["hip hop", "hiphop", "rap", "beats", "flow"],
-    "edm":        ["edm", "electronic", "dance", "club", "rave", "banger", "drop", "bass"],
-    "country":    ["country", "southern", "acoustic guitar", "twang"],
-    "folk":       ["folk", "acoustic", "campfire", "storytelling", "gentle"],
+    "lofi":       ["lofi", "lo-fi", "study", "coding", "chill beats", "bedroom", "homework", "late night studying"],
+    "pop":        ["pop", "catchy", "radio", "mainstream", "sing along", "top 40", "hit"],
+    "rock":       ["rock", "guitar", "band", "grunge", "alt", "alternative", "punk", "metal", "heavy", "gothic", "goth", "dark rock", "emo"],
+    "ambient":    ["ambient", "atmospheric", "space", "dreamy", "meditation", "background", "calm", "zen", "peaceful", "breathe", "float", "still", "quiet"],
+    "jazz":       ["jazz", "coffee shop", "cafe", "smooth", "mellow", "coffee", "blues", "piano bar", "classic"],
+    "synthwave":  ["synthwave", "retro", "80s", "neon", "night drive", "late night", "drive", "techno", "cyber", "futuristic", "vaporwave", "electronic pop"],
+    "indie pop":  ["indie", "indie pop", "alternative pop", "feel good", "bittersweet", "dreamy pop", "soft pop"],
+    "hip hop":    ["hip hop", "hiphop", "rap", "beats", "flow", "trap", "urban", "street"],
+    "edm":        ["edm", "electronic", "dance", "club", "rave", "banger", "drop", "bass", "festival", "dj", "techno dance", "house"],
+    "country":    ["country", "southern", "acoustic guitar", "twang", "western", "rootsy"],
+    "folk":       ["folk", "acoustic", "campfire", "storytelling", "gentle", "singer songwriter", "unplugged", "warm"],
 }
 
 MOOD_KEYWORDS = {
-    "happy":   ["happy", "joy", "upbeat", "cheerful", "positive", "good mood", "smile", "sunshine"],
-    "chill":   ["chill", "relaxed", "calm", "easy", "laid back", "lazy", "sunday", "cozy", "soft"],
-    "intense": ["intense", "hype", "gym", "workout", "pump", "energy", "fire", "aggressive", "beast", "banger"],
-    "relaxed": ["relaxed", "slow", "peaceful", "gentle", "quiet", "wind down", "unwind"],
-    "focused": ["focused", "focus", "concentrate", "work", "productivity", "study", "deep work"],
+    "happy":   ["happy", "joy", "upbeat", "cheerful", "positive", "good mood", "smile", "sunshine", "bright", "excited", "fun", "celebrate", "hype"],
+    "chill":   ["chill", "calm", "easy", "laid back", "lazy", "sunday", "cozy", "soft", "mellow", "breezy", "low key", "chillin"],
+    "intense": ["intense", "gym", "workout", "pump", "fire", "aggressive", "beast", "banger", "angry", "rage", "power", "motivation", "driven"],
+    "relaxed": ["relaxed", "slow", "peaceful", "gentle", "quiet", "wind down", "unwind", "sleepy", "tired", "drowsy", "rest", "nap", "bath"],
+    "focused": ["focused", "focus", "concentrate", "work", "productivity", "study", "deep work", "grind", "flow state", "in the zone"],
     "moody":   ["moody", "sad", "melancholy", "dark", "emotional", "zone out", "lonely", "empty",
-                "night", "rainy", "nostalgic", "heartbreak", "cry", "feelings"],
+                "night", "rainy", "nostalgic", "heartbreak", "cry", "feelings", "depressed", "gloomy",
+                "gothic", "goth", "brooding", "mysterious", "haunting", "somber", "introspective"],
 }
 
 HIGH_ENERGY_WORDS = ["hype", "gym", "workout", "pump", "intense", "banger", "club", "rave",
-                     "fire", "beast", "fast", "loud", "maximum", "hard"]
+                     "fire", "beast", "fast", "loud", "maximum", "hard", "rage", "power",
+                     "festival", "motivated", "driven", "angry", "run", "sprint"]
 LOW_ENERGY_WORDS  = ["chill", "calm", "slow", "soft", "quiet", "gentle", "sleep", "peaceful",
-                     "relax", "unwind", "background", "dreamy", "lazy", "zone out"]
+                     "relax", "unwind", "background", "dreamy", "lazy", "zone out",
+                     "tired", "sleepy", "rest", "nap", "breathe", "float", "still"]
 
-HIGH_VALENCE_WORDS = ["happy", "joy", "positive", "upbeat", "sunshine", "feel good", "smile"]
+HIGH_VALENCE_WORDS = ["happy", "joy", "positive", "upbeat", "sunshine", "feel good", "smile",
+                      "bright", "celebrate", "excited", "fun", "cheerful"]
 LOW_VALENCE_WORDS  = ["sad", "dark", "moody", "lonely", "heartbreak", "empty", "melancholy",
-                      "cry", "feelings", "emotional", "night"]
+                      "cry", "feelings", "emotional", "night", "gothic", "goth", "brooding",
+                      "depressed", "gloomy", "somber", "haunting", "mysterious"]
 
 DEFAULT_PREFS = {
     "favorite_genre": "pop",
@@ -223,3 +228,4 @@ class MusicAgent:
 
         print(f"\n{'='*58}\n")
         logger.info(f"[RUN] Done. vibe='{vibe_prompt}' | confidence={confidence:.3f} | refined={refined}")
+        
