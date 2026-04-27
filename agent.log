@@ -87,3 +87,61 @@
 2026-04-27 01:12:10 | INFO | [ACT] Top pick: 'Electric Youth' (score 3.17)
 2026-04-27 01:12:10 | INFO | [EVALUATE] confidence=0.621 | is_confident=True
 2026-04-27 01:12:10 | INFO | [RUN] Done. vibe='techno' | confidence=0.621 | refined=False
+2026-04-27 01:17:50 | INFO | MusicAgent initialized with 18 songs.
+2026-04-27 01:18:00 | INFO | [PLAN] Parsing vibe: 'sad late night energy, something slow and moody to zone out to'
+2026-04-27 01:18:00 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'synthwave', 'favorite_mood': 'moody', 'target_energy': 0.36, 'target_valence': 0.24}
+2026-04-27 01:18:00 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'synthwave', 'favorite_mood': 'moody', 'target_energy': 0.36, 'target_valence': 0.24}
+2026-04-27 01:18:00 | INFO | [ACT] Top pick: 'Night Drive Loop' (score 3.98)
+2026-04-27 01:18:00 | INFO | [EVALUATE] confidence=0.568 | is_confident=False
+2026-04-27 01:18:00 | INFO | [REFINE] Adjusting from: {'favorite_genre': 'synthwave', 'favorite_mood': 'moody', 'target_energy': 0.36, 'target_valence': 0.24}
+2026-04-27 01:18:00 | INFO | [REFINE] Refined to: {'favorite_genre': 'ambient', 'favorite_mood': 'moody', 'target_energy': 0.36, 'target_valence': 0.24}
+2026-04-27 01:18:00 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'ambient', 'favorite_mood': 'moody', 'target_energy': 0.36, 'target_valence': 0.24}
+2026-04-27 01:18:00 | INFO | [ACT] Top pick: 'Rainy Window' (score 4.29)
+2026-04-27 01:18:00 | INFO | [EVALUATE] confidence=0.583 | is_confident=False
+2026-04-27 01:18:00 | INFO | [RUN] Done. vibe='sad late night energy, something slow and moody to zone out to' | confidence=0.583 | refined=True
+2026-04-27 01:18:00 | INFO | [PLAN] Parsing vibe: 'I need maximum hype for the gym, nothing but high energy bangers'
+2026-04-27 01:18:00 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'edm', 'favorite_mood': 'intense', 'target_energy': 1.0, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'edm', 'favorite_mood': 'intense', 'target_energy': 1.0, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Top pick: 'Bass Drop Arena' (score 4.41)
+2026-04-27 01:18:00 | INFO | [EVALUATE] confidence=0.511 | is_confident=False
+2026-04-27 01:18:00 | INFO | [REFINE] Adjusting from: {'favorite_genre': 'edm', 'favorite_mood': 'intense', 'target_energy': 1.0, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [REFINE] Refined to: {'favorite_genre': 'rock', 'favorite_mood': 'intense', 'target_energy': 0.85, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'rock', 'favorite_mood': 'intense', 'target_energy': 0.85, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Top pick: 'Storm Runner' (score 4.38)
+2026-04-27 01:18:00 | INFO | [EVALUATE] confidence=0.523 | is_confident=False
+2026-04-27 01:18:00 | INFO | [RUN] Done. vibe='I need maximum hype for the gym, nothing but high energy bangers' | confidence=0.523 | refined=True
+2026-04-27 01:18:00 | INFO | [PLAN] Parsing vibe: 'chill Sunday morning, coffee in hand, lo-fi and relaxed vibes'
+2026-04-27 01:18:00 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'lofi', 'favorite_mood': 'chill', 'target_energy': 0.36, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'lofi', 'favorite_mood': 'chill', 'target_energy': 0.36, 'target_valence': 0.6}
+2026-04-27 01:18:00 | INFO | [ACT] Top pick: 'Library Rain' (score 4.49)
+2026-04-27 01:18:00 | INFO | [EVALUATE] confidence=0.720 | is_confident=True
+2026-04-27 01:18:00 | INFO | [RUN] Done. vibe='chill Sunday morning, coffee in hand, lo-fi and relaxed vibes' | confidence=0.720 | refined=False
+2026-04-27 01:18:54 | INFO | MusicAgent initialized with 18 songs.
+2026-04-27 01:18:58 | INFO | [PLAN] Parsing vibe: 'techno'
+2026-04-27 01:18:58 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'synthwave', 'favorite_mood': 'chill', 'target_energy': 0.6, 'target_valence': 0.6}
+2026-04-27 01:18:58 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'synthwave', 'favorite_mood': 'chill', 'target_energy': 0.6, 'target_valence': 0.6}
+2026-04-27 01:18:58 | INFO | [ACT] Top pick: 'Pixel Dreams' (score 3.30)
+2026-04-27 01:18:58 | INFO | [EVALUATE] confidence=0.591 | is_confident=False
+2026-04-27 01:18:58 | INFO | [REFINE] Adjusting from: {'favorite_genre': 'synthwave', 'favorite_mood': 'chill', 'target_energy': 0.6, 'target_valence': 0.6}
+2026-04-27 01:18:58 | INFO | [REFINE] Refined to: {'favorite_genre': 'ambient', 'favorite_mood': 'chill', 'target_energy': 0.6, 'target_valence': 0.6}
+2026-04-27 01:18:58 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'ambient', 'favorite_mood': 'chill', 'target_energy': 0.6, 'target_valence': 0.6}
+2026-04-27 01:18:58 | INFO | [ACT] Top pick: 'Spacewalk Thoughts' (score 4.16)
+2026-04-27 01:18:58 | INFO | [EVALUATE] confidence=0.582 | is_confident=False
+2026-04-27 01:18:58 | INFO | [RUN] Done. vibe='techno' | confidence=0.582 | refined=True
+2026-04-27 01:19:10 | INFO | [PLAN] Parsing vibe: 'gothic'
+2026-04-27 01:19:10 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'rock', 'favorite_mood': 'moody', 'target_energy': 0.6, 'target_valence': 0.36}
+2026-04-27 01:19:10 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'rock', 'favorite_mood': 'moody', 'target_energy': 0.6, 'target_valence': 0.36}
+2026-04-27 01:19:10 | INFO | [ACT] Top pick: 'Storm Runner' (score 3.13)
+2026-04-27 01:19:10 | INFO | [EVALUATE] confidence=0.493 | is_confident=False
+2026-04-27 01:19:10 | INFO | [REFINE] Adjusting from: {'favorite_genre': 'rock', 'favorite_mood': 'moody', 'target_energy': 0.6, 'target_valence': 0.36}
+2026-04-27 01:19:10 | INFO | [REFINE] Refined to: {'favorite_genre': 'edm', 'favorite_mood': 'moody', 'target_energy': 0.6, 'target_valence': 0.36}
+2026-04-27 01:19:10 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'edm', 'favorite_mood': 'moody', 'target_energy': 0.6, 'target_valence': 0.36}
+2026-04-27 01:19:10 | INFO | [ACT] Top pick: 'Bass Drop Arena' (score 3.07)
+2026-04-27 01:19:10 | INFO | [EVALUATE] confidence=0.491 | is_confident=False
+2026-04-27 01:19:10 | INFO | [RUN] Done. vibe='gothic' | confidence=0.491 | refined=True
+2026-04-27 01:19:33 | INFO | [PLAN] Parsing vibe: 'chill'
+2026-04-27 01:19:33 | INFO | [PLAN] Parsed preferences: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.48, 'target_valence': 0.6}
+2026-04-27 01:19:33 | INFO | [ACT] Running recommender | prefs={'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.48, 'target_valence': 0.6}
+2026-04-27 01:19:33 | INFO | [ACT] Top pick: 'Electric Youth' (score 3.05)
+2026-04-27 01:19:33 | INFO | [EVALUATE] confidence=0.615 | is_confident=True
+2026-04-27 01:19:33 | INFO | [RUN] Done. vibe='chill' | confidence=0.615 | refined=False
